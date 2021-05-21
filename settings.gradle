@@ -1,4 +1,4 @@
 rootProject.name = 'dale'
 
-include 'Application'
-include 'E2eTests'
+include 'application'
+include 'e2etests'
