@@ -23,4 +23,3 @@ subprojects {
         testCompile group: 'io.cucumber', name: 'cucumber-picocontainer', version: CUCUMBER_VERSION
     }
 }
-
