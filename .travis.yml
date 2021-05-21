@@ -14,7 +14,8 @@ install:
   - ./gradlew --version
   - ./gradlew assemble --info
 script:
-  - xvfb-run --server-args="-screen 0 1024x768x24" ./gradlew test
+  - ./gradlew --project-dir application build
+  - ./gradlew --project-dir tests/e2e build
 
 notifications:
   email: false
