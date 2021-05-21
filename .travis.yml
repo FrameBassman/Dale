@@ -11,6 +11,7 @@ cache:
   directories:
     - .gradle/caches/
 install:
+  - gradle wrapper
   - ./gradlew --version
   - ./gradlew assemble --info
 script:
