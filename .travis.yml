@@ -14,7 +14,7 @@ install:
   - ./gradlew --version
   - ./gradlew assemble --info
 script:
-  - ./gradlew --project-dir application build
+#  - ./gradlew --project-dir application build
   - ./gradlew --project-dir tests/e2e build
 
 notifications:
