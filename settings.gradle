@@ -1,4 +1,6 @@
 rootProject.name = 'dale'
 
 include 'application'
-include 'e2etests'
+include  'tests:e2e'
+project(':tests:e2e').projectDir = file("tests/e2e")
+

@@ -15,7 +15,7 @@ install:
   - ./gradlew assemble --info
 script:
   - ./gradlew --project-dir application build
-  - ./gradlew --project-dir e2etests build
+  - ./gradlew --project-dir tests/e2e build
 
 notifications:
   email: false

@@ -16,5 +16,5 @@ plugins {
 
 application {
     // Define the main class for the application
-    mainClassName = 'tech.romashov.dale.e2e.App'
+    mainClassName = 'tech.romashov.dale.tests.e2e.App'
 }
