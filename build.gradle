@@ -19,7 +19,6 @@ subprojects {
     }
 
     dependencies {
-        testCompile group: 'io.cucumber', name: 'cucumber-java', version: CUCUMBER_VERSION
-        testCompile group: 'io.cucumber', name: 'cucumber-picocontainer', version: CUCUMBER_VERSION
+        testImplementation 'junit:junit:4.12'
     }
 }

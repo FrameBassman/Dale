@@ -14,20 +14,6 @@ plugins {
     id 'application'
 }
 
-repositories {
-    // Use jcenter for resolving dependencies.
-    // You can declare any Maven/Ivy/file repository here.
-    jcenter()
-}
-
-dependencies {
-    // This dependency is used by the application.
-    implementation 'com.google.guava:guava:28.0-jre'
-
-    // Use JUnit test framework
-    testImplementation 'junit:junit:4.12'
-}
-
 application {
     // Define the main class for the application
     mainClassName = 'tech.romashov.dale.e2e.App'
