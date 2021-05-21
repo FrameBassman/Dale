@@ -6,7 +6,10 @@ package tech.romashov.dale.application;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.bridge.SLF4JBridgeHandler;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@SpringBootApplication
 public class App {
     private static final Logger log = LoggerFactory.getLogger(App.class);
 
@@ -17,6 +20,6 @@ public class App {
     public static void main(String[] args) {
         SLF4JBridgeHandler.removeHandlersForRootLogger();
         SLF4JBridgeHandler.install();
-        log.info(new App().getGreeting());
+        SpringApplication.run(App.class, args);
     }
 }
