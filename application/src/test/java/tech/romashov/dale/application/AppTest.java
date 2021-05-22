@@ -4,11 +4,13 @@
 package tech.romashov.dale.application;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 public class AppTest {
     @Test public void testAppHasAGreeting() {
         App classUnderTest = new App();
-        assertNotNull("app should have a greeting", classUnderTest.getGreeting());
+        assertThat(classUnderTest.getGreeting(), equalTo("Hello world."));
     }
 }
