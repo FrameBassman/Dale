@@ -5,9 +5,10 @@ package tech.romashov.dale.application;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.bridge.SLF4JBridgeHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.Collections;
 
 @SpringBootApplication
 public class App {
@@ -18,8 +19,17 @@ public class App {
     }
 
     public static void main(String[] args) {
-        SLF4JBridgeHandler.removeHandlersForRootLogger();
-        SLF4JBridgeHandler.install();
-        SpringApplication.run(App.class, args);
+        App app = new App();
+        SpringApplication application = new SpringApplication(App.class);
+        application.setDefaultProperties(Collections.singletonMap("server.port", app.port()));
+        application.run(args);
+    }
+
+    public String port() {
+        if (System.getenv("PORT").equals("") || System.getenv("PORT") == null) {
+            return "8081";
+        } else {
+            return System.getenv("PORT");
+        }
     }
 }
