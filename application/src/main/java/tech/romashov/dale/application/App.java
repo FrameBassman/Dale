@@ -26,7 +26,7 @@ public class App {
     }
 
     public String port() {
-        if (System.getenv("PORT").equals("") || System.getenv("PORT") == null) {
+        if (System.getenv("PORT") == null  || System.getenv("PORT").equals("")) {
             return "8081";
         } else {
             return System.getenv("PORT");
