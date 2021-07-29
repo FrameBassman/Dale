@@ -10,7 +10,7 @@ WORKDIR /app
 COPY --chown=deployer:wheel --from=build-env /app/build/install/app-boot .
 # Run under non-privileged user with minimal write permissions
 USER deployer
-ENTRYPOINT ["bin/web"]
+ENTRYPOINT ["bin/app"]
 # Expose dummy port to avoid Heroku errors
 ENV PORT=8080
 EXPOSE $PORT
