@@ -5,15 +5,15 @@ RUN gradle installBootDist
 
 FROM bellsoft/liberica-openjdk-alpine:11 as final
 RUN apk add --no-cache --upgrade bash
-RUN adduser -S user
+RUN adduser -S deployer -G wheel
 WORKDIR /app
-COPY --from=build-env /app/build/install/web-boot .
-COPY --from=build-env /app/wait-for-it.sh .
-COPY --from=build-env /app/start.sh .
+COPY --chown=deployer:wheel --from=build-env /app/build/install/app-boot .
+COPY --chown=deployer:wheel --from=build-env /app/wait-for-it.sh .
+COPY --chown=deployer:wheel --from=build-env /app/start.sh .
 # Run under non-privileged user with minimal write permissions
-#USER user
+USER deployer
 #ENTRYPOINT ["./start.sh && bin/web"]
-CMD ./start.sh && bin/web
+CMD ./start.sh && bin/app
 # Expose dummy port to avoid Heroku errors
 ENV PORT=8080
 EXPOSE $PORT
