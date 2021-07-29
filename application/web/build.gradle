@@ -28,4 +28,7 @@ dependencies {
 
 application {
     mainClassName = 'tech.romashov.dale.application.web.App'
+    applicationDefaultJvmArgs = [
+            "-Dspring.profiles.active=${System.getProperty("spring.profiles.active", "default")}"
+    ]
 }
