@@ -1,0 +1,9 @@
+version: '3.6'
+
+services:
+  web:
+    container_name: dale_web
+    environment:
+      - ASPNETCORE_URLS=http://+:5000
+#    volumes:
+#      - ./Services/TicketStore.Web/logs:/home/deployer/app/logs

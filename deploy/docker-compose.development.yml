@@ -1,0 +1,29 @@
+version: '3.6'
+
+services:
+  web:
+    build:
+      context: ./application/web
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://dale_postgres:5432/postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+  postgres:
+    image: postgres:11.11-alpine
+    container_name: dale_postgres
+    volumes:
+      - pgsdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    logging:
+      driver: none
+
+volumes:
+  pgsdata:
