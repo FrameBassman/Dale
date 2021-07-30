@@ -5,3 +5,7 @@ start-dev:
 		-f deploy/docker-compose.yml \
 		-f deploy/docker-compose.development.yml \
 		up --build
+
+logs-prod:
+	heroku logs --tail --app romashovtech-dale
+

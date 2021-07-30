@@ -3,7 +3,7 @@ COPY . /app
 WORKDIR /app
 RUN gradle installBootDist -Dspring.profiles.active=prod
 
-FROM bellsoft/liberica-openjdk-alpine:11 as final
+FROM bellsoft/liberica-openjdk-alpine:8u292-10 as final
 RUN apk add --no-cache --upgrade bash
 RUN adduser -S deployer -G wheel
 WORKDIR /app
