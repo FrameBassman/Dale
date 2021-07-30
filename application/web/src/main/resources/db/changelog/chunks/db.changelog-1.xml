@@ -6,4 +6,12 @@
     <changeSet id="1627661325" author="Dmitry Romashov">
         <dropTable tableName="bonus"/>
     </changeSet>
+    <changeSet id="1627661910" author="Dmitry Romashov">
+        <createTable tableName="retails">
+            <column name="id" type="integer" autoIncrement="true"/>
+            <column name="ip" type="varchar2(255)"/>
+            <column name="vendor" type="varchar2(255)"/>
+            <column name="status" type="varchar2(255)"/>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
