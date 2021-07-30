@@ -3,6 +3,8 @@ package tech.romashov.dale.application.web;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.Collections;
+
 @SpringBootApplication
 public class App {
     public String getGreeting() {
@@ -10,6 +12,8 @@ public class App {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(App.class, args);
+        SpringApplication app = new SpringApplication(App.class);
+        app.setDefaultProperties(Collections.singletonMap("server.port", System.getProperty("PORT", "8080")));
+        app.run(args);
     }
 }

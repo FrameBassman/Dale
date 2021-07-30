@@ -34,9 +34,5 @@ application {
     if (System.getProperty(activeProfile, "-1") != "-1") {
         args.add("-D${activeProfile}=${System.getProperty(activeProfile)}")
     }
-    def port = "server.port"
-    if (System.getProperty(port, "-1") != "-1") {
-        args.add("-D${port}=${System.getProperty(port)}")
-    }
     applicationDefaultJvmArgs = args
 }
