@@ -36,7 +36,7 @@ application {
     }
     def port = "server.port"
     if (System.getProperty(port, "-1") != "-1") {
-        args.add("-D${port}=${port}")
+        args.add("-D${port}=${System.getProperty(port)}")
     }
     applicationDefaultJvmArgs = args
 }
