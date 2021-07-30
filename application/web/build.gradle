@@ -28,10 +28,15 @@ dependencies {
 
 application {
     mainClassName = 'tech.romashov.dale.application.web.App'
+
+    def args = []
     def activeProfile = "spring.profiles.active"
     if (System.getProperty(activeProfile, "-1") != "-1") {
-        applicationDefaultJvmArgs = [
-                "-D${activeProfile}=${System.getProperty(activeProfile)}"
-        ]
+        args.add("-D${activeProfile}=${System.getProperty(activeProfile)}")
     }
+    def port = "server.port"
+    if (System.getProperty(port, "-1") != "-1") {
+        args.add("-D${port}=${port}")
+    }
+    applicationDefaultJvmArgs = args
 }
