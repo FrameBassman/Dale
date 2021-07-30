@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.springframework.boot' version '2.4.5'
+    id 'org.liquibase.gradle' version '2.0.4'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+}
+
+ext {
+    springBootVersion = '2.4.5'
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.liquibase:liquibase-core:4.3.5'
+    implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
+    runtimeOnly 'org.postgresql:postgresql'
+    testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+}
+
+application {
+    mainClassName = 'tech.romashov.dale.application.web.App'
+
+    def args = []
+    def activeProfile = "spring.profiles.active"
+    if (System.getProperty(activeProfile, "-1") != "-1") {
+        args.add("-D${activeProfile}=${System.getProperty(activeProfile)}")
+    }
+    applicationDefaultJvmArgs = args
+}
