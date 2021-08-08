@@ -13,7 +13,7 @@ public class RetailEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Inet4Address ip;
+    private String ip;
     private String vendor;
     private String status;
 
@@ -27,11 +27,11 @@ public class RetailEntity {
         this.id = id;
     }
 
-    public Inet4Address getIp() {
+    public String getIp() {
         return ip;
     }
 
-    public void setIp(Inet4Address ip) {
+    public void setIp(String ip) {
         this.ip = ip;
     }
 

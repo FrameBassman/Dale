@@ -25,7 +25,7 @@ public class RetailsController {
     @GetMapping("create")
     public RetailEntity Create() throws UnknownHostException {
         RetailEntity retail = new RetailEntity();
-        retail.setIp((Inet4Address) InetAddress.getByName("127.0.0.1"));
+        retail.setIp(InetAddress.getByName("127.0.0.1").getHostAddress());
         retail.setStatus(Statuses.free);
         retail.setVendor(Vendors.ALL);
         return retails.save(retail);
