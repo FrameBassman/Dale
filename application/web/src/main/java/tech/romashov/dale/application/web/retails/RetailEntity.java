@@ -1,6 +1,8 @@
 package tech.romashov.dale.application.web.retails;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.net.Inet4Address;
@@ -8,7 +10,9 @@ import java.net.Inet4Address;
 @Entity
 @Table(name = "retails")
 public class RetailEntity {
-    @Id private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private Inet4Address ip;
     private String vendor;
     private String status;
