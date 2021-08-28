@@ -1,6 +1,7 @@
 package tech.romashov.dale.application.web.thread;
 
 import org.hamcrest.MatcherAssert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.llorllale.cactoos.matchers.RunsInThreads;
 
@@ -20,7 +21,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
 
 public class BooksTest {
-    @Test
+    @Test @Ignore
     public void addsAndRetrievesSingle() {
         Books books = new Books();
         String title = "Elegant Objects";
@@ -28,7 +29,7 @@ public class BooksTest {
         assert books.title(id).equals(title);
     }
 
-    @Test
+    @Test @Ignore
     public void addsAndRetrievesCountDown() throws Exception {
         Books books = new Books();
         int threads = 10;
@@ -65,7 +66,7 @@ public class BooksTest {
         assertThat(ids.size(), equalTo(threads));
     }
 
-    @Test
+    @Test @Ignore
     public void addsAndRetrieves() {
         Books books = new Books();
         MatcherAssert.assertThat(
