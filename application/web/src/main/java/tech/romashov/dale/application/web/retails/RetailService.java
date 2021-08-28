@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 @Service
 public class RetailService {
@@ -11,11 +12,29 @@ public class RetailService {
     private RetailsRepository retails;
     private int limit = 5;
 
-    public RetailEntity add(String vendor, String ip) throws Exception {
-        ArrayList<RetailEntity> vendorRetails = new ArrayList<>(retails.findByVendor(vendor));
-        if (vendorRetails.size() > limit) {
-            throw new ArrayIndexOutOfBoundsException("");
+    public RetailEntity add(String vendor, String inetAddress) throws ArrayIndexOutOfBoundsException {
+        ArrayList<RetailEntity> all = retails.findByVendorOrderedByCreationDate(vendor);
+        ArrayList<RetailEntity> free = all.stream()
+                .filter(retail -> retail.getStatus().equals(Statuses.free))
+                .collect(Collectors.toCollection(ArrayList::new));
+        if (all.size() > limit) {
+            if (free.isEmpty()) {
+                throw new ArrayIndexOutOfBoundsException();
+            }
+
+            RetailEntity old = free.get(free.size() - 1);
+            retails.delete(old);
+            return addNew(vendor, inetAddress);
         }
-        return null;
+
+        return addNew(vendor, inetAddress);
+    }
+
+    private RetailEntity addNew(String vendor, String inetAddress) {
+        RetailEntity newInstance = new RetailEntity();
+        newInstance.setVendor(vendor);
+        newInstance.setStatus(Statuses.free);
+        newInstance.setIp(inetAddress);
+        return retails.save(newInstance);
     }
 }
