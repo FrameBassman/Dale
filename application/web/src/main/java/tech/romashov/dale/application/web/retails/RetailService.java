@@ -13,19 +13,19 @@ public class RetailService {
     private int limit = 5;
 
     public RetailEntity add(String vendor, String inetAddress) throws ArrayIndexOutOfBoundsException {
-        ArrayList<RetailEntity> all = retails.findByVendorOrderedByCreationDate(vendor);
-        ArrayList<RetailEntity> free = all.stream()
-                .filter(retail -> retail.getStatus().equals(Statuses.free))
-                .collect(Collectors.toCollection(ArrayList::new));
-        if (all.size() > limit) {
-            if (free.isEmpty()) {
-                throw new ArrayIndexOutOfBoundsException();
-            }
-
-            RetailEntity old = free.get(free.size() - 1);
-            retails.delete(old);
-            return addNew(vendor, inetAddress);
-        }
+//        ArrayList<RetailEntity> all = retails.findByVendorOrderedByCreationDate(vendor);
+//        ArrayList<RetailEntity> free = all.stream()
+//                .filter(retail -> retail.getStatus().equals(Statuses.free))
+//                .collect(Collectors.toCollection(ArrayList::new));
+//        if (all.size() > limit) {
+//            if (free.isEmpty()) {
+//                throw new ArrayIndexOutOfBoundsException();
+//            }
+//
+//            RetailEntity old = free.get(free.size() - 1);
+//            retails.delete(old);
+//            return addNew(vendor, inetAddress);
+//        }
 
         return addNew(vendor, inetAddress);
     }

@@ -14,4 +14,11 @@
             <column name="status" type="varchar2(255)"/>
         </createTable>
     </changeSet>
+    <changeSet id="1630241186" author="Dmitry Romashov">
+        <addColumn tableName="retails">
+            <column name="createdAt" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>
