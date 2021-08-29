@@ -1,6 +1,5 @@
 package tech.romashov.dale.application.web.retails;
 
-import jdk.net.SocketFlow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +17,11 @@ public class RetailService {
     private int limit = 5;
 
     public RetailEntity add(String vendor, String inetAddress) throws ArrayIndexOutOfBoundsException {
-        if (isNullOrEmpty(vendor) || isNullOrEmpty(inetAddress)) {
-            throw new ArrayIndexOutOfBoundsException("Parameter is null or empty");
+        if (isNullOrEmpty(vendor)) {
+            throw new ArrayIndexOutOfBoundsException("Parameter 'vendor' is null or empty");
+        }
+        if (isNullOrEmpty(inetAddress)) {
+            throw new ArrayIndexOutOfBoundsException("Parameter 'ip' is null or empty");
         }
 
         ArrayList<RetailEntity> all = retails.findByVendorOrderByCreatedAt(vendor);
@@ -28,7 +30,7 @@ public class RetailService {
                 .collect(Collectors.toCollection(ArrayList::new));
         if (all.size() >= limit) {
             if (free.isEmpty()) {
-                throw new ArrayIndexOutOfBoundsException();
+                throw new ArrayIndexOutOfBoundsException("There are no free retails for updating");
             }
 
             RetailEntity old = free.get(0);
@@ -41,7 +43,7 @@ public class RetailService {
 
     public RetailEntity lock(String vendor) throws ArrayIndexOutOfBoundsException {
         if (isNullOrEmpty(vendor)) {
-            throw new ArrayIndexOutOfBoundsException("Parameter is null or empty");
+            throw new ArrayIndexOutOfBoundsException("Parameter 'vendor' is null or empty");
         }
 
         List<RetailEntity> free = retails.findByVendorOrderByCreatedAt(vendor)
