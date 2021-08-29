@@ -37,6 +37,10 @@ public class RetailService {
         return addNew(Vendors.ALL, InetAddress.getByName("127.0.0.1").getHostAddress());
     }
 
+    public Iterable<RetailEntity> getAll() {
+        return retails.findAll();
+    }
+
     private RetailEntity addNew(String vendor, String inetAddress) {
         RetailEntity newInstance = new RetailEntity();
         newInstance.vendor = vendor;

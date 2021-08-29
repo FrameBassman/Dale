@@ -21,12 +21,12 @@ public class RetailsController {
     private Logger logger;
 
     @GetMapping("all")
-    public Iterable<RetailEntity> GetAll() {
-        return retails.findAll();
+    public Iterable<RetailEntity> all() {
+        return retailService.getAll();
     }
 
     @GetMapping("create")
-    public RetailEntity сreate() throws UnknownHostException {
+    public RetailEntity create() throws UnknownHostException {
         return retailService.addDummy();
     }
 
