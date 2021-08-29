@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.net.Inet4Address;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "retails")
@@ -16,6 +17,7 @@ public class RetailEntity {
     private String ip;
     private String vendor;
     private String status;
+    private LocalDate createdAt;
 
     public RetailEntity() {}
 
@@ -49,5 +51,13 @@ public class RetailEntity {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public LocalDate getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
     }
 }
