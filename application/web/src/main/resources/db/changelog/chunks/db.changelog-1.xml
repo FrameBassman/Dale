@@ -22,7 +22,7 @@
         </addColumn>
     </changeSet>
     <changeSet id="1630256614" author="Dmitry Romashov">
-        <createTable tableName="configuration">
+        <createTable tableName="system_properties">
             <column name="id" type="integer" autoIncrement="true"/>
             <column name="key" type="varchar2(255)"/>
             <column name="value" type="varchar2(255)"/>
