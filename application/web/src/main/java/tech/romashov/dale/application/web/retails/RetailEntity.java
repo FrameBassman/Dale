@@ -6,61 +6,23 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.net.Inet4Address;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @Entity
 @Table(name = "retails")
 public class RetailEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private String ip;
-    private String vendor;
-    private String status;
-    private LocalDateTime createdAt;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name = "id")
+    public Integer id;
 
-    public RetailEntity() {}
+    @Column(name = "ip")
+    public String ip;
 
-    public Integer getId() {
-        return id;
-    }
+    @Column(name = "vendor")
+    public String vendor;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    @Column(name = "status")
+    public String status;
 
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
-    public String getVendor() {
-        return vendor;
-    }
-
-    public void setVendor(String vendor) {
-        this.vendor = vendor;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
+    @Column(name = "created_at")
+    public LocalDateTime createdAt;
 }

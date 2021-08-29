@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.romashov.dale.application.web.retails.ui.AddRetailView;
 
-import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("retails")
@@ -28,7 +26,7 @@ public class RetailsController {
     }
 
     @GetMapping("create")
-    public RetailEntity Create() throws UnknownHostException {
+    public RetailEntity сreate() throws UnknownHostException {
         return retailService.addDummy();
     }
 

@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 @Service
 public class RetailService {
@@ -14,19 +16,19 @@ public class RetailService {
     private int limit = 5;
 
     public RetailEntity add(String vendor, String inetAddress) throws ArrayIndexOutOfBoundsException {
-//        ArrayList<RetailEntity> all = retails.findByVendorOrderedByCreationDate(vendor);
-//        ArrayList<RetailEntity> free = all.stream()
-//                .filter(retail -> retail.getStatus().equals(Statuses.free))
-//                .collect(Collectors.toCollection(ArrayList::new));
-//        if (all.size() > limit) {
-//            if (free.isEmpty()) {
-//                throw new ArrayIndexOutOfBoundsException();
-//            }
-//
-//            RetailEntity old = free.get(free.size() - 1);
-//            retails.delete(old);
-//            return addNew(vendor, inetAddress);
-//        }
+        ArrayList<RetailEntity> all = retails.findByVendorOrderByCreatedAt(vendor);
+        ArrayList<RetailEntity> free = all.stream()
+                .filter(retail -> retail.status.equals(Statuses.free))
+                .collect(Collectors.toCollection(ArrayList::new));
+        if (all.size() >= limit) {
+            if (free.isEmpty()) {
+                throw new ArrayIndexOutOfBoundsException();
+            }
+
+            RetailEntity old = free.get(0);
+            retails.delete(old);
+            return addNew(vendor, inetAddress);
+        }
 
         return addNew(vendor, inetAddress);
     }
@@ -37,10 +39,10 @@ public class RetailService {
 
     private RetailEntity addNew(String vendor, String inetAddress) {
         RetailEntity newInstance = new RetailEntity();
-        newInstance.setVendor(vendor);
-        newInstance.setStatus(Statuses.free);
-        newInstance.setIp(inetAddress);
-        newInstance.setCreatedAt(LocalDateTime.now());
+        newInstance.vendor = vendor;
+        newInstance.status = Statuses.free;
+        newInstance.ip = inetAddress;
+        newInstance.createdAt = LocalDateTime.now();
         return retails.save(newInstance);
     }
 }
