@@ -2,6 +2,7 @@ package tech.romashov.dale.application.web.retails;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tech.romashov.dale.application.web.properties.SystemPropertiesService;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -14,9 +15,10 @@ import java.util.stream.Collectors;
 public class RetailService {
     @Autowired
     private RetailsRepository retails;
-    private int limit = 5;
+    @Autowired
+    private SystemPropertiesService properties;
 
-    public RetailEntity add(String vendor, String inetAddress) throws DaleException {
+    public RetailEntity add(String vendor, String inetAddress) throws RetailException {
         validate("vendor", vendor);
         validate("ip", inetAddress);
 
@@ -24,9 +26,9 @@ public class RetailService {
         ArrayList<RetailEntity> free = all.stream()
                 .filter(retail -> retail.status.equals(Statuses.free))
                 .collect(Collectors.toCollection(ArrayList::new));
-        if (all.size() >= limit) {
+        if (all.size() >= properties.getLimit()) {
             if (free.isEmpty()) {
-                throw new DaleException("There are no free retails for updating");
+                throw new RetailException("There are no free retails for updating");
             }
 
             RetailEntity old = free.get(0);
@@ -37,7 +39,7 @@ public class RetailService {
         return addNew(vendor, inetAddress);
     }
 
-    public RetailEntity lock(String vendor) throws DaleException {
+    public RetailEntity lock(String vendor) throws RetailException {
         validate("vendor", vendor);
 
         List<RetailEntity> free = retails.findByVendorOrderByCreatedAt(vendor)
@@ -45,18 +47,18 @@ public class RetailService {
                 .filter(retail -> retail.status.equals(Statuses.free))
                 .collect(Collectors.toList());
         if (free.isEmpty()) {
-            throw new DaleException("There are no free retails here");
+            throw new RetailException("There are no free retails here");
         }
         RetailEntity candidate = free.get(0);
         candidate.status = Statuses.busy;
         return retails.save(candidate);
     }
 
-    public RetailEntity release(String inetAddress) throws DaleException {
+    public RetailEntity release(String inetAddress) throws RetailException {
         validate("ip", inetAddress);
         RetailEntity toRelease = retails.findByIp(inetAddress);
         if (toRelease == null) {
-            throw new DaleException(String.format("There is no retails with ip: %s", inetAddress));
+            throw new RetailException(String.format("There is no retails with ip: %s", inetAddress));
         }
         toRelease.status = Statuses.free;
         return retails.save(toRelease);
@@ -79,9 +81,9 @@ public class RetailService {
         return retails.save(newInstance);
     }
 
-    private void validate(String name, String value) throws DaleException {
+    private void validate(String name, String value) throws RetailException {
         if (isNullOrEmpty(value)) {
-            throw new DaleException(String.format("Parameter %s is null or empty", name));
+            throw new RetailException(String.format("Parameter %s is null or empty", name));
         }
     }
 

@@ -21,4 +21,17 @@
             </column>
         </addColumn>
     </changeSet>
+    <changeSet id="1630256614" author="Dmitry Romashov">
+        <createTable tableName="system_properties">
+            <column name="id" type="integer" autoIncrement="true"/>
+            <column name="key" type="varchar2(255)"/>
+            <column name="value" type="varchar2(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1630258308" author="Dmitry Romashov">
+        <insert tableName="system_properties">
+            <column name="key" value="limit"/>
+            <column name="value" value="10"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
