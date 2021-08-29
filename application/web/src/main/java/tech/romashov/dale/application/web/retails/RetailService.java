@@ -3,6 +3,8 @@ package tech.romashov.dale.application.web.retails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.time.LocalDateTime;
 
 @Service
@@ -27,6 +29,10 @@ public class RetailService {
 //        }
 
         return addNew(vendor, inetAddress);
+    }
+
+    public RetailEntity addDummy() throws UnknownHostException {
+        return addNew(Vendors.ALL, InetAddress.getByName("127.0.0.1").getHostAddress());
     }
 
     private RetailEntity addNew(String vendor, String inetAddress) {

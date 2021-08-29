@@ -29,12 +29,7 @@ public class RetailsController {
 
     @GetMapping("create")
     public RetailEntity Create() throws UnknownHostException {
-        RetailEntity retail = new RetailEntity();
-        retail.setIp(InetAddress.getByName("127.0.0.1").getHostAddress());
-        retail.setStatus(Statuses.free);
-        retail.setVendor(Vendors.ALL);
-        retail.setCreatedAt(LocalDateTime.now());
-        return retails.save(retail);
+        return retailService.addDummy();
     }
 
     @PostMapping("add")
