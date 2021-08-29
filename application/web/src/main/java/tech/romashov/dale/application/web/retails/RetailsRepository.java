@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface RetailsRepository extends CrudRepository<RetailEntity, Integer> {
 //    ArrayList<RetailEntity> findByVendorOrderedByCreationDate(String vendor);
-    List<RetailEntity> findByVendor(String vendor);
+    ArrayList<RetailEntity> findByVendor(String vendor);
 }
