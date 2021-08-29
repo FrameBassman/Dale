@@ -2,6 +2,7 @@ package tech.romashov.dale.application.web.retails;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tech.romashov.dale.application.web.properties.SystemPropertiesService;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -14,7 +15,8 @@ import java.util.stream.Collectors;
 public class RetailService {
     @Autowired
     private RetailsRepository retails;
-    private int limit = 5;
+    @Autowired
+    private SystemPropertiesService properties;
 
     public RetailEntity add(String vendor, String inetAddress) throws RetailException {
         validate("vendor", vendor);
@@ -24,7 +26,7 @@ public class RetailService {
         ArrayList<RetailEntity> free = all.stream()
                 .filter(retail -> retail.status.equals(Statuses.free))
                 .collect(Collectors.toCollection(ArrayList::new));
-        if (all.size() >= limit) {
+        if (all.size() >= properties.getLimit()) {
             if (free.isEmpty()) {
                 throw new RetailException("There are no free retails for updating");
             }
