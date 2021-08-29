@@ -6,4 +6,5 @@ import java.util.ArrayList;
 
 public interface RetailsRepository extends CrudRepository<RetailEntity, Integer> {
     ArrayList<RetailEntity> findByVendorOrderByCreatedAt(String vendor);
+    RetailEntity findByIp(String ip);
 }

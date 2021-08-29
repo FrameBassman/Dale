@@ -16,13 +16,9 @@ public class RetailService {
     private RetailsRepository retails;
     private int limit = 5;
 
-    public RetailEntity add(String vendor, String inetAddress) throws ArrayIndexOutOfBoundsException {
-        if (isNullOrEmpty(vendor)) {
-            throw new ArrayIndexOutOfBoundsException("Parameter 'vendor' is null or empty");
-        }
-        if (isNullOrEmpty(inetAddress)) {
-            throw new ArrayIndexOutOfBoundsException("Parameter 'ip' is null or empty");
-        }
+    public RetailEntity add(String vendor, String inetAddress) throws DaleException {
+        validate("vendor", vendor);
+        validate("ip", inetAddress);
 
         ArrayList<RetailEntity> all = retails.findByVendorOrderByCreatedAt(vendor);
         ArrayList<RetailEntity> free = all.stream()
@@ -30,7 +26,7 @@ public class RetailService {
                 .collect(Collectors.toCollection(ArrayList::new));
         if (all.size() >= limit) {
             if (free.isEmpty()) {
-                throw new ArrayIndexOutOfBoundsException("There are no free retails for updating");
+                throw new DaleException("There are no free retails for updating");
             }
 
             RetailEntity old = free.get(0);
@@ -41,21 +37,29 @@ public class RetailService {
         return addNew(vendor, inetAddress);
     }
 
-    public RetailEntity lock(String vendor) throws ArrayIndexOutOfBoundsException {
-        if (isNullOrEmpty(vendor)) {
-            throw new ArrayIndexOutOfBoundsException("Parameter 'vendor' is null or empty");
-        }
+    public RetailEntity lock(String vendor) throws DaleException {
+        validate("vendor", vendor);
 
         List<RetailEntity> free = retails.findByVendorOrderByCreatedAt(vendor)
                 .stream()
                 .filter(retail -> retail.status.equals(Statuses.free))
                 .collect(Collectors.toList());
         if (free.isEmpty()) {
-            throw new ArrayIndexOutOfBoundsException();
+            throw new DaleException("There are no free retails here");
         }
         RetailEntity candidate = free.get(0);
         candidate.status = Statuses.busy;
         return retails.save(candidate);
+    }
+
+    public RetailEntity release(String inetAddress) throws DaleException {
+        validate("ip", inetAddress);
+        RetailEntity toRelease = retails.findByIp(inetAddress);
+        if (toRelease == null) {
+            throw new DaleException(String.format("There is no retails with ip: %s", inetAddress));
+        }
+        toRelease.status = Statuses.free;
+        return retails.save(toRelease);
     }
 
     public RetailEntity addDummy() throws UnknownHostException {
@@ -73,6 +77,12 @@ public class RetailService {
         newInstance.ip = inetAddress;
         newInstance.createdAt = LocalDateTime.now();
         return retails.save(newInstance);
+    }
+
+    private void validate(String name, String value) throws DaleException {
+        if (isNullOrEmpty(value)) {
+            throw new DaleException(String.format("Parameter %s is null or empty", name));
+        }
     }
 
     private boolean isNullOrEmpty(String candidate) {

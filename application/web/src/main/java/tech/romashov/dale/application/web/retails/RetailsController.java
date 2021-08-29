@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.romashov.dale.application.web.retails.ui.AddRetailView;
 import tech.romashov.dale.application.web.retails.ui.LockRetailView;
+import tech.romashov.dale.application.web.retails.ui.ReleaseRetailView;
 
 import java.net.UnknownHostException;
 
@@ -39,5 +40,10 @@ public class RetailsController {
     @PostMapping("lock")
     public RetailEntity lock(@RequestBody LockRetailView view) throws Exception {
         return retailService.lock(view.getVendor());
+    }
+
+    @PostMapping("release")
+    public RetailEntity release(@RequestBody ReleaseRetailView view) throws Exception {
+        return retailService.release(view.getIp());
     }
 }
