@@ -3,9 +3,7 @@ package tech.romashov.dale.application.web.retails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.stream.Collectors;
+import java.time.LocalDateTime;
 
 @Service
 public class RetailService {
@@ -36,7 +34,7 @@ public class RetailService {
         newInstance.setVendor(vendor);
         newInstance.setStatus(Statuses.free);
         newInstance.setIp(inetAddress);
-        newInstance.setCreatedAt(LocalDate.now());
+        newInstance.setCreatedAt(LocalDateTime.now());
         return retails.save(newInstance);
     }
 }

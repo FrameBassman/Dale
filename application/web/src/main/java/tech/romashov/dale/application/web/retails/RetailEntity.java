@@ -1,5 +1,6 @@
 package tech.romashov.dale.application.web.retails;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.net.Inet4Address;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "retails")
@@ -17,7 +20,7 @@ public class RetailEntity {
     private String ip;
     private String vendor;
     private String status;
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 
     public RetailEntity() {}
 
@@ -53,11 +56,11 @@ public class RetailEntity {
         this.status = status;
     }
 
-    public LocalDate getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 }

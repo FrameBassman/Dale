@@ -11,7 +11,7 @@ import tech.romashov.dale.application.web.retails.ui.AddRetailView;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("retails")
@@ -33,7 +33,7 @@ public class RetailsController {
         retail.setIp(InetAddress.getByName("127.0.0.1").getHostAddress());
         retail.setStatus(Statuses.free);
         retail.setVendor(Vendors.ALL);
-        retail.setCreatedAt(LocalDate.now());
+        retail.setCreatedAt(LocalDateTime.now());
         return retails.save(retail);
     }
 

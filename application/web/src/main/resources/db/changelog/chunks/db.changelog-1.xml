@@ -16,7 +16,7 @@
     </changeSet>
     <changeSet id="1630241186" author="Dmitry Romashov">
         <addColumn tableName="retails">
-            <column name="createdAt" type="DATE">
+            <column name="created_at" type="datetime">
                 <constraints nullable="false"/>
             </column>
         </addColumn>
