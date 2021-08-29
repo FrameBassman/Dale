@@ -21,4 +21,11 @@
             </column>
         </addColumn>
     </changeSet>
+    <changeSet id="1630256614" author="Dmitry Romashov">
+        <createTable tableName="configuration">
+            <column name="id" type="integer" autoIncrement="true"/>
+            <column name="key" type="varchar2(255)"/>
+            <column name="value" type="varchar2(255)"/>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
