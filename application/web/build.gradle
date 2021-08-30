@@ -24,6 +24,7 @@ dependencies {
     runtimeOnly 'org.postgresql:postgresql'
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
     testImplementation "org.llorllale:cactoos-matchers:0.25"
+    testImplementation "com.h2database:h2:1.4.200"
 }
 
 application {
