@@ -1,7 +1,7 @@
 FROM gradle:jdk8-hotspot AS build-env
 COPY . /app
 WORKDIR /app
-RUN gradle installBootDist -Dspring.profiles.active=prod
+RUN gradle installBootDist -Dspring.profiles.active=production
 
 FROM bellsoft/liberica-openjdk-alpine:8u292-10 as final
 RUN apk add --no-cache --upgrade bash

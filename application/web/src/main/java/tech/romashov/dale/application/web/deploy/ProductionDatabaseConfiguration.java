@@ -1,4 +1,4 @@
-package tech.romashov.dale.application.web;
+package tech.romashov.dale.application.web.deploy;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,8 +9,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 @Configuration
-@Profile("prod")
-public class MainConfig {
+@Profile("production")
+public class ProductionDatabaseConfiguration {
     @Bean
     public DriverManagerDataSource dataSource() throws URISyntaxException {
         URI dbUri = new URI(System.getenv("DATABASE_URL"));
