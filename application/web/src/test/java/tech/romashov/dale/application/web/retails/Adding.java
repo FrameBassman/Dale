@@ -22,9 +22,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = {App.class, UnitTestsDatabaseConfiguration.class})
-public class AddingTests {
+public class Adding extends RetailsTests {
     @Autowired
     private RetailService retailService;
 

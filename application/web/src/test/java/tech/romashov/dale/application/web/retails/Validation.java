@@ -4,7 +4,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-public class ValidationTests {
+public class Validation {
     @Rule
     public ExpectedException expectedEx = ExpectedException.none();
 
