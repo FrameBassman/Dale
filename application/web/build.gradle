@@ -29,7 +29,8 @@ dependencies {
 application {
     mainClassName = 'tech.romashov.dale.application.web.App'
 
-    def args = ['-Xmx256m']
+//    def args = ['-Xmx256m']
+    def args = []
     def activeProfile = "spring.profiles.active"
     if (System.getProperty(activeProfile, "-1") != "-1") {
         args.add("-D${activeProfile}=${System.getProperty(activeProfile)}")
