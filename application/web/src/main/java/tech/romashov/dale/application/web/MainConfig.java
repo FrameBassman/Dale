@@ -9,7 +9,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 @Configuration
-@Profile("prod")
+@Profile("production")
 public class MainConfig {
     @Bean
     public DriverManagerDataSource dataSource() throws URISyntaxException {
