@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import tech.romashov.dale.application.web.retails.ui.AddRetailView;
-import tech.romashov.dale.application.web.retails.ui.LockRetailView;
-import tech.romashov.dale.application.web.retails.ui.ReleaseRetailView;
+import tech.romashov.dale.application.web.retails.ui.requests.AddRetailView;
+import tech.romashov.dale.application.web.retails.ui.requests.LockRetailView;
+import tech.romashov.dale.application.web.retails.ui.requests.ReleaseRetailView;
 
 import java.net.UnknownHostException;
 
