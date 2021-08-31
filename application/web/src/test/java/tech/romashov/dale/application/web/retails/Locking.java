@@ -3,13 +3,6 @@ package tech.romashov.dale.application.web.retails;
 import org.hamcrest.collection.IsIterableWithSize;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-import tech.romashov.dale.application.web.App;
-import tech.romashov.dale.application.web.deploy.UnitTestsDatabaseConfiguration;
-import tech.romashov.dale.application.web.properties.SystemPropertiesRepository;
 import tech.romashov.dale.application.web.properties.SystemPropertyEntity;
 
 import java.time.Instant;
@@ -18,7 +11,6 @@ import java.util.TimeZone;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasSize;
 
 public class Locking extends RetailsTests {
     @Before
@@ -30,7 +22,7 @@ public class Locking extends RetailsTests {
     }
 
     @Test
-    public void itWorks() throws Exception {
+    public void oneFreeRetailExists_tryLockIt_shouldBeLocked() throws Exception {
         // Arrange
         addDummyFreeRetail(Vendors.ALL, "1.1.1.1");
 
@@ -39,11 +31,50 @@ public class Locking extends RetailsTests {
 
         // Assert
         assertThat(retailsRepository.findAll(), new IsIterableWithSize<>(equalTo(1)));
+        assertThat(retailsRepository.findByIp("1.1.1.1").status, equalTo(Statuses.busy));
+    }
+
+    @Test
+    public void oneBusyRetailExists_tryLockIt_shouldNotBeLocked() {
+        // Arrange
+        addDummyBusyRetail("1.1.1.1");
+
+        // Act
+        try {
+            retailService.lock(Vendors.ALL);
+            assertThat("Exception should be thrown", false);
+        } catch (RetailException exception) {
+
+            // Assert
+            assertThat(exception.getMessage(), equalTo("There are no free retails here"));
+        }
+        assertThat(retailsRepository.findAll(), new IsIterableWithSize<>(equalTo(1)));
+        assertThat(retailsRepository.findByIp("1.1.1.1").status, equalTo(Statuses.busy));
+    }
+
+    @Test
+    public void oneFreeForNCRVendor_oneBusyForAllVendor_tryLockForNCR_shouldBeLocked() throws Exception {
+        addDummyBusyRetail(Vendors.ALL, "1.1.1.1");
+        addDummyFreeRetail(Vendors.NCR, "2.2.2.2");
+
+        retailService.lock(Vendors.NCR);
+
+        assertThat(retailsRepository.findAll(), new IsIterableWithSize<>(equalTo(2)));
+        assertThat(retailsRepository.findByIp("2.2.2.2").status, equalTo(Statuses.busy));
     }
 
     private RetailEntity addDummyFreeRetail(String vendor, String inetAddress) {
         RetailEntity existent = new RetailEntity();
         existent.status = Statuses.free;
+        existent.createdAt = LocalDateTime.ofInstant(Instant.now().minusSeconds(10), TimeZone.getDefault().toZoneId());
+        existent.vendor = vendor;
+        existent.ip = inetAddress;
+        return retailsRepository.save(existent);
+    }
+
+    private RetailEntity addDummyBusyRetail(String vendor, String inetAddress) {
+        RetailEntity existent = new RetailEntity();
+        existent.status = Statuses.busy;
         existent.createdAt = LocalDateTime.ofInstant(Instant.now().minusSeconds(10), TimeZone.getDefault().toZoneId());
         existent.vendor = vendor;
         existent.ip = inetAddress;
