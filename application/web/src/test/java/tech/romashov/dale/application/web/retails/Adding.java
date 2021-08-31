@@ -3,19 +3,9 @@ package tech.romashov.dale.application.web.retails;
 import org.hamcrest.collection.IsIterableWithSize;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-import tech.romashov.dale.application.web.App;
-import tech.romashov.dale.application.web.deploy.UnitTestsDatabaseConfiguration;
-import tech.romashov.dale.application.web.properties.SystemPropertiesRepository;
 import tech.romashov.dale.application.web.properties.SystemPropertyEntity;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.TimeZone;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 

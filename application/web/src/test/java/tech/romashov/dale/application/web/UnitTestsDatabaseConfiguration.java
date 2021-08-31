@@ -1,4 +1,4 @@
-package tech.romashov.dale.application.web.deploy;
+package tech.romashov.dale.application.web;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

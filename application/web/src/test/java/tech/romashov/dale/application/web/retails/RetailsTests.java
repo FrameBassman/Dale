@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import tech.romashov.dale.application.web.App;
-import tech.romashov.dale.application.web.deploy.UnitTestsDatabaseConfiguration;
+import tech.romashov.dale.application.web.UnitTestsDatabaseConfiguration;
 import tech.romashov.dale.application.web.properties.SystemPropertiesRepository;
 
 import java.time.Instant;
