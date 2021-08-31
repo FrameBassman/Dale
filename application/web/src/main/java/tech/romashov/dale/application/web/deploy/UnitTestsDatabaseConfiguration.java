@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@Profile("unittests")
 public class UnitTestsDatabaseConfiguration {
     @Bean
     public DriverManagerDataSource dataSource() {
