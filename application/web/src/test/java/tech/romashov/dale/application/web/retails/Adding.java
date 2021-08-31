@@ -1,5 +1,6 @@
 package tech.romashov.dale.application.web.retails;
 
+import org.hamcrest.collection.IsIterableWithSize;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,15 +24,6 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 
 public class Adding extends RetailsTests {
-    @Autowired
-    private RetailService retailService;
-
-    @Autowired
-    private RetailsRepository retailsRepository;
-
-    @Autowired
-    private SystemPropertiesRepository propsRepository;
-
     @Before
     public void before() {
         SystemPropertyEntity limit = propsRepository.findByKey("limit");
@@ -49,8 +41,7 @@ public class Adding extends RetailsTests {
         retailService.add(Vendors.ALL, "2.2.2.2");
 
         // Assert
-        List<RetailEntity> findAll = StreamSupport.stream(retailsRepository.findAll().spliterator(), false).collect(Collectors.toList());
-        assertThat(findAll, hasSize(2));
+        assertThat(retailsRepository.findAll(), new IsIterableWithSize<>(equalTo(2)));
     }
 
     @Test(expected = RetailException.class)
@@ -77,23 +68,5 @@ public class Adding extends RetailsTests {
         assertThat(findAll, hasSize(2));
         assertThat(findAll.stream().filter(r -> r.ip.equalsIgnoreCase(free.ip)).count(), equalTo(0L));
         assertThat(findAll.stream().filter(r -> r.ip.equalsIgnoreCase(result.ip)).count(), equalTo(1L));
-    }
-
-    private RetailEntity addDummyFreeRetail(String inetAddress) {
-        RetailEntity existent = new RetailEntity();
-        existent.status = Statuses.free;
-        existent.createdAt = LocalDateTime.ofInstant(Instant.now().minusSeconds(10), TimeZone.getDefault().toZoneId());
-        existent.vendor = Vendors.ALL;
-        existent.ip = inetAddress;
-        return retailsRepository.save(existent);
-    }
-
-    private RetailEntity addDummyBusyRetail(String inetAddress) {
-        RetailEntity existent = new RetailEntity();
-        existent.status = Statuses.busy;
-        existent.createdAt = LocalDateTime.ofInstant(Instant.now().minusSeconds(10), TimeZone.getDefault().toZoneId());
-        existent.vendor = Vendors.ALL;
-        existent.ip = inetAddress;
-        return retailsRepository.save(existent);
     }
 }
