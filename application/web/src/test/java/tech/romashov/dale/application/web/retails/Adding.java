@@ -5,13 +5,13 @@ import org.junit.Before;
 import org.junit.Test;
 import tech.romashov.dale.application.web.properties.SystemPropertyEntity;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
+import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.iterableWithSize;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
 
 public class Adding extends RetailsTests {
     @Before
@@ -28,10 +28,14 @@ public class Adding extends RetailsTests {
         addDummyBusyRetail("1.1.1.1");
 
         // Act
-        retailService.add(Vendors.ALL, "2.2.2.2");
+        Map<String, RetailEntity> result = retailService.add(Vendors.ALL, "2.2.2.2");
 
         // Assert
         assertThat(retailsRepository.findAll(), new IsIterableWithSize<>(equalTo(2)));
+        assertThat(retailsRepository.findByIp("1.1.1.1"), not(nullValue()));
+        assertThat(retailsRepository.findByIp("2.2.2.2"), not(nullValue()));
+        assertThat(result.size(), equalTo(1));
+        assertThat(result.get("new").ip, equalTo("2.2.2.2"));
     }
 
     @Test(expected = RetailException.class)
@@ -51,12 +55,15 @@ public class Adding extends RetailsTests {
         RetailEntity free = addDummyFreeRetail("2.2.2.2");
 
         // Act
-        RetailEntity result = retailService.add(Vendors.ALL, "3.3.3.3");
+        Map<String, RetailEntity> result = retailService.add(Vendors.ALL, "3.3.3.3");
 
         // Assert
-        List<RetailEntity> findAll = StreamSupport.stream(retailsRepository.findAll().spliterator(), false).collect(Collectors.toList());
-        assertThat(findAll, hasSize(2));
-        assertThat(findAll.stream().filter(r -> r.ip.equalsIgnoreCase(free.ip)).count(), equalTo(0L));
-        assertThat(findAll.stream().filter(r -> r.ip.equalsIgnoreCase(result.ip)).count(), equalTo(1L));
+        assertThat(retailsRepository.findAll(), iterableWithSize(equalTo(2)));
+        assertThat(retailsRepository.findByIp("1.1.1.1"), not(nullValue()));
+        assertThat(retailsRepository.findByIp("2.2.2.2"), nullValue());
+        assertThat(retailsRepository.findByIp("3.3.3.3"), not(nullValue()));
+        assertThat(result.size(), equalTo(2));
+        assertThat(result.get("new").ip, equalTo("3.3.3.3"));
+        assertThat(result.get("old").ip, equalTo("2.2.2.2"));
     }
 }

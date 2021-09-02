@@ -12,6 +12,8 @@ import tech.romashov.dale.application.web.retails.ui.requests.LockRetailView;
 import tech.romashov.dale.application.web.retails.ui.requests.ReleaseRetailView;
 
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Map;
 
 @RestController
 @RequestMapping("retails")
@@ -33,7 +35,7 @@ public class RetailsController {
     }
 
     @PostMapping("add")
-    public RetailEntity add(@RequestBody AddRetailView view) throws Exception {
+    public Map<String, RetailEntity> add(@RequestBody AddRetailView view) throws Exception {
         return retailService.add(view.getVendor(), view.getIp());
     }
 
