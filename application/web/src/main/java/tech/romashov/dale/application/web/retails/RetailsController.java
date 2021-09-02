@@ -7,11 +7,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import tech.romashov.dale.application.web.retails.ui.AddRetailView;
-import tech.romashov.dale.application.web.retails.ui.LockRetailView;
-import tech.romashov.dale.application.web.retails.ui.ReleaseRetailView;
+import tech.romashov.dale.application.web.retails.ui.requests.AddRetailView;
+import tech.romashov.dale.application.web.retails.ui.requests.LockRetailView;
+import tech.romashov.dale.application.web.retails.ui.requests.ReleaseRetailView;
 
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("retails")
@@ -33,7 +36,7 @@ public class RetailsController {
     }
 
     @PostMapping("add")
-    public RetailEntity add(@RequestBody AddRetailView view) throws Exception {
+    public Map<String, RetailEntity> add(@RequestBody AddRetailView view) throws Exception {
         return retailService.add(view.getVendor(), view.getIp());
     }
 
@@ -43,7 +46,7 @@ public class RetailsController {
     }
 
     @PostMapping("release")
-    public RetailEntity release(@RequestBody ReleaseRetailView view) throws Exception {
+    public Iterable<RetailEntity> release(@RequestBody ReleaseRetailView view) throws Exception {
         return retailService.release(view.getIp());
     }
 }

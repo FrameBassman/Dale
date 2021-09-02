@@ -1,14 +1,16 @@
 spring:
-
   datasource:
     url: "jdbc:postgresql://localhost:5432/postgres"
     username: "postgres"
     password: "postgres"
     pool-size: 15
-
   liquibase:
     change-log: db/changelog/db.changelog-master.xml
 
 logging:
   level:
     root: WARN
+
+server:
+  error:
+    include-stacktrace: never

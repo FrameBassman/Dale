@@ -1,4 +1,4 @@
-package tech.romashov.dale.application.web.retails.ui;
+package tech.romashov.dale.application.web.retails.ui.requests;
 
 public class LockRetailView {
     private String vendor;
