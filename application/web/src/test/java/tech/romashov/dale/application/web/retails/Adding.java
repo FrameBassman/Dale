@@ -8,6 +8,7 @@ import tech.romashov.dale.application.web.properties.SystemPropertyEntity;
 import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.iterableWithSize;
 import static org.hamcrest.Matchers.not;
@@ -58,10 +59,10 @@ public class Adding extends RetailsTests {
         Map<String, RetailEntity> result = retailService.add(Vendors.ALL, "3.3.3.3");
 
         // Assert
-        assertThat(retailsRepository.findAll(), iterableWithSize(equalTo(2)));
-        assertThat(retailsRepository.findByIp("1.1.1.1"), not(nullValue()));
-        assertThat(retailsRepository.findByIp("2.2.2.2"), nullValue());
-        assertThat(retailsRepository.findByIp("3.3.3.3"), not(nullValue()));
+        assertThat(retailsRepository.findAll(), iterableWithSize(2));
+        assertThat(retailsRepository.findByIp("1.1.1.1"), not(empty()));
+        assertThat(retailsRepository.findByIp("2.2.2.2"), empty());
+        assertThat(retailsRepository.findByIp("3.3.3.3"), not(empty()));
         assertThat(result.size(), equalTo(2));
         assertThat(result.get("new").ip, equalTo("3.3.3.3"));
         assertThat(result.get("old").ip, equalTo("2.2.2.2"));

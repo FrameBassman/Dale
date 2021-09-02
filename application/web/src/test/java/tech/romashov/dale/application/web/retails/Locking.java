@@ -11,6 +11,7 @@ import java.util.TimeZone;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
 
 public class Locking extends RetailsTests {
     @Before
@@ -31,7 +32,8 @@ public class Locking extends RetailsTests {
 
         // Assert
         assertThat(retailsRepository.findAll(), new IsIterableWithSize<>(equalTo(1)));
-        assertThat(retailsRepository.findByIp("1.1.1.1").status, equalTo(Statuses.busy));
+        assertThat(retailsRepository.findByIp("1.1.1.1"), hasSize(1));
+        assertThat(retailsRepository.findByIp("1.1.1.1").get(0).status, equalTo(Statuses.busy));
     }
 
     @Test
@@ -49,7 +51,8 @@ public class Locking extends RetailsTests {
             assertThat(exception.getMessage(), equalTo("There are no free retails here"));
         }
         assertThat(retailsRepository.findAll(), new IsIterableWithSize<>(equalTo(1)));
-        assertThat(retailsRepository.findByIp("1.1.1.1").status, equalTo(Statuses.busy));
+        assertThat(retailsRepository.findByIp("1.1.1.1"), hasSize(1));
+        assertThat(retailsRepository.findByIp("1.1.1.1").get(0).status, equalTo(Statuses.busy));
     }
 
     @Test
@@ -60,7 +63,8 @@ public class Locking extends RetailsTests {
         retailService.lock(Vendors.NCR);
 
         assertThat(retailsRepository.findAll(), new IsIterableWithSize<>(equalTo(2)));
-        assertThat(retailsRepository.findByIp("2.2.2.2").status, equalTo(Statuses.busy));
+        assertThat(retailsRepository.findByIp("2.2.2.2"), hasSize(1));
+        assertThat(retailsRepository.findByIp("2.2.2.2").get(0).status, equalTo(Statuses.busy));
     }
 
     private RetailEntity addDummyFreeRetail(String vendor, String inetAddress) {

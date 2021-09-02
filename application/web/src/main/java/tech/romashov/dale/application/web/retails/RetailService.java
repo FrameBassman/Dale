@@ -1,5 +1,6 @@
 package tech.romashov.dale.application.web.retails;
 
+import jdk.net.SocketFlow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tech.romashov.dale.application.web.properties.SystemPropertiesService;
@@ -60,14 +61,16 @@ public class RetailService {
         return retails.save(candidate);
     }
 
-    public RetailEntity release(String inetAddress) throws RetailException {
+    public Iterable<RetailEntity> release(String inetAddress) throws RetailException {
         validate("ip", inetAddress);
-        RetailEntity toRelease = retails.findByIp(inetAddress);
-        if (toRelease == null) {
+        List<RetailEntity> toRelease = retails.findByIp(inetAddress);
+        if (toRelease.isEmpty()) {
             throw new RetailException(String.format("There is no retails with ip: %s", inetAddress));
         }
-        toRelease.status = Statuses.free;
-        return retails.save(toRelease);
+        for (RetailEntity retail : toRelease) {
+            retail.status = Statuses.free;
+        }
+        return retails.saveAll(toRelease);
     }
 
     public RetailEntity addDummy() throws UnknownHostException {
