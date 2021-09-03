@@ -3,7 +3,7 @@ spring:
     url: "jdbc:postgresql://localhost:5432/postgres"
     username: "postgres"
     password: "postgres"
-    pool-size: 15
+    pool-size: 5
   liquibase:
     change-log: db/changelog/db.changelog-master.xml
 
