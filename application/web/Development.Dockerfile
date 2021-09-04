@@ -14,6 +14,3 @@ COPY --chown=deployer:wheel --from=build-env /app/start.sh .
 USER deployer
 #ENTRYPOINT ["./start.sh && bin/web"]
 CMD ./start.sh && bin/app
-# Expose dummy port to avoid Heroku errors
-ENV PORT=8080
-EXPOSE $PORT
