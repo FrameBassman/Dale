@@ -9,7 +9,12 @@ spring:
 
 logging:
   level:
-    root: INFO
+    org.springframework: DEBUG
+#    tech.romashov: DEBUG
+#  pattern:
+#    file: %d %p %c{1.} [%t] %m%n
+#    console: %d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n
+#  file: web.log
 
 server:
   error:
