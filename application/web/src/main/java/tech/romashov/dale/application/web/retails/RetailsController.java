@@ -12,8 +12,6 @@ import tech.romashov.dale.application.web.retails.ui.requests.LockRetailView;
 import tech.romashov.dale.application.web.retails.ui.requests.ReleaseRetailView;
 
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 @RestController
