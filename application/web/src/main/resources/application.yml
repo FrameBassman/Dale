@@ -11,6 +11,5 @@ logging:
   level:
     root: INFO
 
-server:
-  error:
-    include-stacktrace: never
+sentry:
+  dsn: https://b2d53413134a40a0ab722068c90cef84@o164625.ingest.sentry.io/5946083

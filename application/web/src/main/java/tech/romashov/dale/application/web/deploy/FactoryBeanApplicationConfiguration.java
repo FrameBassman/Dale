@@ -10,7 +10,7 @@ import java.net.URISyntaxException;
 
 @Configuration
 @Profile("production")
-public class ProductionDatabaseConfiguration {
+public class FactoryBeanApplicationConfiguration {
     @Bean
     public DriverManagerDataSource dataSource() throws URISyntaxException {
         URI dbUri = new URI(System.getenv("DATABASE_URL"));
